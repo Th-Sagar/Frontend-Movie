@@ -3,13 +3,13 @@
     <h2 class="text-2xl font-bold mb-8 text-blue-900 text-center">
       Register Here
     </h2>
-    <form>
-      <!-- <div
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
+      <div
         *ngIf="inlineNotification.show"
         class="text-red-600 mt-4 text-center"
       >
         {{ inlineNotification.text }}
-      </div> -->
+      </div>
       <div class="mb-4">
         <label for="name" class="block text-gray-700">Name</label>
         <input
