@@ -40,5 +40,7 @@ export class RegisterComponent {
     });
   }
 
-  register() {}
+  register() {
+    console.log(this.registerForm.value);
+  }
 }
