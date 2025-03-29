@@ -7,6 +7,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { AuthService, RegisterRequest } from '../../services/auth.service';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -31,7 +33,11 @@ export class RegisterComponent {
     text: '',
   };
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {
     this.registerForm = this.formBuilder.group({
       name: this.name,
       username: this.username,
@@ -42,5 +48,21 @@ export class RegisterComponent {
 
   register() {
     console.log(this.registerForm.value);
+    const registerRequest: RegisterRequest = {
+      name: this.registerForm.get('name')?.value,
+      username: this.registerForm.get('username')?.value,
+      email: this.registerForm.get('email')?.value,
+      password: this.registerForm.get('password')?.value,
+    };
+
+    this.authService.register(registerRequest).subscribe({
+      next: (res: any) => {
+        console.log(res);
+        this.router.navigate(['login']);
+      },
+      error: (err: any) => {
+        console.log(err);
+      },
+    });
   }
 }
