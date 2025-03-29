@@ -15,6 +15,13 @@ export class AuthService {
       registerRequest
     );
   }
+
+  login(loginRequest: LoginRequest): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(
+      `${this.BASE_URL}/api/v1/auth/login`,
+      loginRequest
+    );
+  }
 }
 
 export type RegisterRequest = {
@@ -30,4 +37,9 @@ export type AuthResponse = {
   name: string;
   email: string;
   username: string;
+};
+
+export type LoginRequest = {
+  email: string;
+  password: string;
 };
