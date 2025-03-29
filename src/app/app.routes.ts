@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { AddMovieComponent } from './components/add-movie/add-movie.component';
 
 export const routes: Routes = [
   {
@@ -18,5 +19,11 @@ export const routes: Routes = [
     path: 'register',
     title: 'Movie App - Register',
     component: RegisterComponent,
+  },
+
+  {
+    path: 'add-movie',
+    title: 'Movie App - Add movie',
+    component: AddMovieComponent,
   },
 ];

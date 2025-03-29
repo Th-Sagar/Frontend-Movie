@@ -48,19 +48,34 @@ export class LoginComponent {
 
   login() {
     console.log(this.loginForm.value);
-    const loginRequest: LoginRequest = {
-      email: this.loginForm.get('email')?.value,
-      password: this.loginForm.get('password')?.value,
-    };
+    if (this.loginForm.valid) {
+      const loginRequest: LoginRequest = {
+        email: this.loginForm.get('email')?.value,
+        password: this.loginForm.get('password')?.value,
+      };
 
-    this.authService.login(loginRequest).subscribe({
-      next: (res: any) => {
-        console.log(res);
-        this.router.navigate(['login']);
-      },
-      error: (err: any) => {
-        console.log(err);
-      },
-    });
+      this.authService.login(loginRequest).subscribe({
+        next: (res: any) => {
+          console.log(res);
+          this.authService.setLoggedIn(true);
+          this.router.navigate(['add-movie']);
+        },
+        error: (err: any) => {
+          console.log(err);
+          this.loginForm.reset();
+          this.inlineNotification = {
+            show: true,
+            type: 'error',
+            text: 'Login failed, please try again!',
+          };
+        },
+      });
+    } else {
+      this.inlineNotification = {
+        show: true,
+        type: 'error',
+        text: 'Please fill up mandatory fields!',
+      };
+    }
   }
 }

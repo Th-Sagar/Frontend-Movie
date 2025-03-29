@@ -6,6 +6,7 @@
   </div>
   <div class="flex space-x-8">
     <a routerLink="/" class="hover:text-yellow-500 text-xl">Home</a>
+    <!-- <div class="relative group" *ngIf="isAdmin()"> -->
     <div class="relative group">
       <a class="hover:text-yellow-500 text-xl cursor-pointer">Movies</a>
       <div
@@ -23,22 +24,28 @@
   <div class="space-x-4 flex items-center">
     <a
       routerLink="/login"
+      *ngIf="!isLoggedIn()"
       class="bg-yellow-500 font-bold text-blue-900 px-3 py-2 rounded hover:bg-yellow-400 hover:cursor-pointer"
       >Login</a
     >
     <a
       routerLink="/register"
+      *ngIf="!isLoggedIn()"
       class="bg-yellow-500 font-bold text-blue-900 px-3 py-2 rounded hover:bg-yellow-400"
       >Register</a
     >
 
     <!-- For Logged in User -->
-    <!-- <div class="flex items-center space-x-2">
-      <h2 class="font-bold text-yellow-300 px-3 py-2 rounded text-lg"></h2>
+    <div class="flex items-center space-x-2" *ngIf="isLoggedIn()">
+      <h2 class="font-bold text-yellow-300 px-3 py-2 rounded text-lg">
+        <!-- {{ getName() }} -->
+        {{ name }}
+      </h2>
       <a
+        (click)="logout()"
         class="text-white bg-red-500 hover:bg-red-700 px-4 py-2 rounded hover:cursor-pointer"
         >Logout</a
       >
-    </div> -->
+    </div>
   </div>
 </nav>
