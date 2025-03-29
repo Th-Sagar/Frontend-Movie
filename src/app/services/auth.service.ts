@@ -36,7 +36,8 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    return !!sessionStorage.getItem('accessToken');
+    const token = sessionStorage.getItem('accessToken');
+    return token != null && !this.isTokenExpired(token);
   }
 
   logout(): void {

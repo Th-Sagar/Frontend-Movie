@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
-  name: string | null = sessionStorage.getItem('name');
+  name = signal<string | null>(sessionStorage.getItem('name'));
 
   isLoggedIn = signal<boolean>(false);
 

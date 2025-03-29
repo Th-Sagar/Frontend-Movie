@@ -39,7 +39,7 @@
     <div class="flex items-center space-x-2" *ngIf="isLoggedIn()">
       <h2 class="font-bold text-yellow-300 px-3 py-2 rounded text-lg">
         <!-- {{ getName() }} -->
-        {{ name }}
+        {{ name() }}
       </h2>
       <a
         (click)="logout()"
