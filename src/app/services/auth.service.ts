@@ -7,9 +7,9 @@ import { catchError, Observable, tap, throwError } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  public BASE_URL = 'http://localhost:9090';
-
+  public BASE_URL = 'http://localhost:8080';
   private loggedIn = signal<boolean>(this.isAuthenticated());
+
   constructor(private http: HttpClient) {}
 
   register(registerRequest: RegisterRequest): Observable<AuthResponse> {
@@ -28,8 +28,8 @@ export class AuthService {
             sessionStorage.setItem('accessToken', response.accessToken);
             sessionStorage.setItem('refreshToken', response.refreshToken);
             sessionStorage.setItem('name', response.name);
-            sessionStorage.setItem('username', response.username);
             sessionStorage.setItem('email', response.email);
+
             const decodedToken: any = jwtDecode(response.accessToken);
             sessionStorage.setItem('role', decodedToken.role[0].authority);
           }
@@ -46,7 +46,6 @@ export class AuthService {
     sessionStorage.removeItem('accessToken');
     sessionStorage.removeItem('refreshToken');
     sessionStorage.removeItem('name');
-    sessionStorage.removeItem('username');
     sessionStorage.removeItem('email');
   }
 
@@ -65,11 +64,9 @@ export class AuthService {
 
   refreshToken(): Observable<any> {
     const refToken = sessionStorage.getItem('refreshToken');
-
     const rtobj: RefreshTokenRequest = {
       refreshToken: refToken,
     };
-
     return this.http
       .post(`${this.BASE_URL}/api/v1/auth/refresh`, { rtobj })
       .pipe(
@@ -85,10 +82,9 @@ export class AuthService {
 
   hasRole(role: string): boolean {
     const token = sessionStorage.getItem('accessToken');
-
     if (token) {
       const decodedToken: any = jwtDecode(token);
-      return decodedToken?.role[0]?.authority.include(role);
+      return decodedToken?.role[0]?.authority.includes(role);
     }
     return false;
   }
