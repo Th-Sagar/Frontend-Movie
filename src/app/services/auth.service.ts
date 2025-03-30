@@ -30,6 +30,8 @@ export class AuthService {
             sessionStorage.setItem('name', response.name);
             sessionStorage.setItem('username', response.username);
             sessionStorage.setItem('email', response.email);
+            const decodedToken: any = jwtDecode(response.accessToken);
+            sessionStorage.setItem('role', decodedToken.role[0].authority);
           }
         })
       );
@@ -79,6 +81,16 @@ export class AuthService {
           return throwError(() => err);
         })
       );
+  }
+
+  hasRole(role: string): boolean {
+    const token = sessionStorage.getItem('accessToken');
+
+    if (token) {
+      const decodedToken: any = jwtDecode(token);
+      return decodedToken?.role[0]?.authority.include(role);
+    }
+    return false;
   }
 }
 

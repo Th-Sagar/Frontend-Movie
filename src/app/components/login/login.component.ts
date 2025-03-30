@@ -56,7 +56,7 @@ export class LoginComponent {
 
       this.authService.login(loginRequest).subscribe({
         next: (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.authService.setLoggedIn(true);
           this.router.navigate(['add-movie']);
         },

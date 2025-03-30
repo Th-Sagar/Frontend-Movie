@@ -25,4 +25,11 @@ export class NavbarComponent {
     this.authService.setLoggedIn(false);
     this.router.navigate(['login']);
   }
+
+  isAdmin(): boolean {
+    return this.authService.hasRole('ADMIN');
+  }
+  getName(): string | null {
+    return sessionStorage.getItem('name');
+  }
 }

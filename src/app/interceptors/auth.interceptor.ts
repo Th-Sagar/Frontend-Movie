@@ -47,7 +47,6 @@ function addToken(req: HttpRequest<unknown>, token: string) {
 
 function handle401Error(req: HttpRequest<unknown>, next: HttpHandlerFn) {
   const authService = inject(AuthService);
-
   const router = inject(Router);
 
   return authService.refreshToken().pipe(
