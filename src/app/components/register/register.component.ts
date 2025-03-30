@@ -7,11 +7,12 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService, RegisterRequest } from '../../services/auth.service';
-import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
+  standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
@@ -50,11 +51,10 @@ export class RegisterComponent {
     console.log(this.registerForm.value);
     const registerRequest: RegisterRequest = {
       name: this.registerForm.get('name')?.value,
-      username: this.registerForm.get('username')?.value,
       email: this.registerForm.get('email')?.value,
+      username: this.registerForm.get('username')?.value,
       password: this.registerForm.get('password')?.value,
     };
-
     this.authService.register(registerRequest).subscribe({
       next: (res: any) => {
         console.log(res);
