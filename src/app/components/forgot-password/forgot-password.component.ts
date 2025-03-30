@@ -17,7 +17,13 @@ import {
 
 @Component({
   selector: 'app-forgot-password',
-  imports: [],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterLink,
+    MatProgressSpinnerModule,
+  ],
   standalone: true,
   templateUrl: './forgot-password.component.html',
   styleUrl: './forgot-password.component.css',
