@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import {
   FormBuilder,
@@ -6,17 +7,13 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import {
-  AuthService,
-  LoginRequest,
-  RegisterRequest,
-} from '../../services/auth.service';
-import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService, LoginRequest } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, CommonModule],
+  standalone: true,
+  imports: [ReactiveFormsModule, CommonModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
@@ -53,12 +50,11 @@ export class LoginComponent {
         email: this.loginForm.get('email')?.value,
         password: this.loginForm.get('password')?.value,
       };
-
       this.authService.login(loginRequest).subscribe({
         next: (res: any) => {
-          // console.log(res);
+          console.log(res);
           this.authService.setLoggedIn(true);
-          this.router.navigate(['add-movie']);
+          this.router.navigate(['']);
         },
         error: (err: any) => {
           console.log(err);
